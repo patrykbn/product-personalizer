@@ -39,7 +39,7 @@ ProductForm.propTypes = {
     handleSizeChange: PropTypes.func.isRequired,
     handleColorChange: PropTypes.func.isRequired,
     handleAddToCart: PropTypes.func.isRequired,
-    getPrice: PropTypes.func.isRequired,
+    getPrice: PropTypes.string.isRequired,
   };
   
   export default ProductForm;

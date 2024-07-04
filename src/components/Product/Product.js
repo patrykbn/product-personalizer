@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import ProductForm from '../ProductForm/ProductForm';
 import ProductImage from '../ProductImage/ProductImage';
 import styles from './Product.module.scss';
@@ -15,13 +15,13 @@ const Product = props => {
     setSelectedColor(color);
   };
 
-  const getPrice = () => {
+  const getPrice = useMemo(() => {
     const selectedSizeObject = props.sizes.find(size => size.name === selectedSize);
     return (
-      props.basePrice + (selectedSizeObject ? selectedSizeObject.additionalPrice : 0 )
-    )
-  }
-
+      props.basePrice + (selectedSizeObject ? selectedSizeObject.additionalPrice : 0)
+    );
+  }, [selectedSize, props.basePrice, props.sizes]);
+  
   const handleAddToCart = e => {
     e.preventDefault();
     console.log('ADD TO CART SUMMARY');
@@ -29,7 +29,7 @@ const Product = props => {
     console.log(`Name: ${props.title}`);
     console.log(`Size: ${selectedSize}`);
     console.log(`Color: ${selectedColor}`);
-    console.log(`Price: ${getPrice()}$`);
+    console.log(`Price: ${getPrice}$`);
   }
 
   return (
@@ -38,7 +38,7 @@ const Product = props => {
       <div>
         <header>
           <h2 className={styles.name}>{props.title}</h2>
-          <span className={styles.price}>Price: {getPrice()}$</span>
+          <span className={styles.price}>Price: {getPrice}$</span>
         </header>
         <ProductForm
           sizes={props.sizes}
@@ -67,6 +67,5 @@ Product.propTypes = {
   ).isRequired,
   colors: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
-
 
 export default Product;
