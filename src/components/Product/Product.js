@@ -9,6 +9,7 @@ const Product = props => {
 
   const handleSizeChange = size => {
     setSelectedSize(size);
+    console.log('size test', selectedSize);
   };
 
   const handleColorChange = color => {
